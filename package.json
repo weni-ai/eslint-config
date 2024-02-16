@@ -1,0 +1,37 @@
+{
+  "name": "@weni/eslint-config",
+  "version": "1.0.0",
+  "description": "Weni's ESLint config",
+  "main": "vue2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weni-ai/eslint-config.git"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "config",
+    "weni",
+    "javascript",
+    "styleguide"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weni-ai/eslint-config/issues"
+  },
+  "homepage": "https://github.com/weni-ai/eslint-config#readme",
+  "peerDependencies": {
+    "eslint": ">= 8"
+  },
+  "devDependencies": {
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-vue": "9.21.1",
+    "vue-eslint-parser": "9.4.2"
+  }
+}
