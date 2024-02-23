@@ -38,5 +38,20 @@ module.exports = {
         singleAttributePerLine: true,
       },
     ],
+    'vue/attribute-hyphenation': [
+      'error',
+      'never',
+      {
+        ignore: [],
+      },
+    ],
+    'vue/component-name-in-template-casing': [
+      'error',
+      'PascalCase',
+      {
+        registeredComponentsOnly: false,
+        ignores: [],
+      },
+    ],
   },
 };
