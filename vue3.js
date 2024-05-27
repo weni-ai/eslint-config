@@ -5,7 +5,7 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-recommended',
     'plugin:prettier/recommended',
   ],
   overrides: [
@@ -16,6 +16,15 @@ module.exports = {
       files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
+      },
+    },
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+      ],
+      env: {
+        jest: true,
       },
     },
   ],
@@ -51,6 +60,19 @@ module.exports = {
       {
         registeredComponentsOnly: false,
         ignores: [],
+      },
+    ],
+    'vue/multi-word-component-names': [
+      'warn',
+      {
+        ignores: [],
+      },
+    ],
+    'no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
       },
     ],
   },
