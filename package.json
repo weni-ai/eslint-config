@@ -1,6 +1,6 @@
 {
   "name": "@weni/eslint-config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Weni's ESLint config",
   "main": "vue2.js",
   "scripts": {
