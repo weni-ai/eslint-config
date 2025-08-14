@@ -1,57 +1,79 @@
-module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/essential',
-    'plugin:prettier/recommended',
-  ],
-  overrides: [
-    {
-      env: {
-        node: true,
+const { defineConfig } = require("eslint/config");
+const globals = require("globals");
+const pluginVue = require("eslint-plugin-vue");
+const prettierPlugin = require("eslint-plugin-prettier");
+const js = require("@eslint/js");
+const { FlatCompat } = require("@eslint/eslintrc");
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+module.exports = defineConfig([
+  js.configs.recommended,
+  ...compat.extends(
+    "plugin:vue/essential",
+    "plugin:prettier/recommended"
+  ),
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
       },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
-      },
+
+      ecmaVersion: 2020,
+      sourceType: "module",
+      parserOptions: {},
     },
-  ],
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
+
+    plugins: {
+      vue: pluginVue,
+      prettier: prettierPlugin,
+    },
+
+    rules: {
+      "prettier/prettier": [
+        "error",
+        {
+          tabWidth: 2,
+          semi: true,
+          singleQuote: true,
+          bracketSpacing: true,
+          printWidth: 80,
+          trailingComma: "all",
+          endOfLine: "lf",
+          singleAttributePerLine: true,
+        },
+      ],
+
+      "vue/attribute-hyphenation": [
+        "error",
+        "never",
+        {
+          ignore: [],
+        },
+      ],
+
+      "vue/component-name-in-template-casing": [
+        "error",
+        "PascalCase",
+        {
+          registeredComponentsOnly: false,
+          ignores: [],
+        },
+      ],
+    },
   },
-  plugins: ['vue'],
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        tabWidth: 2,
-        semi: true,
-        singleQuote: true,
-        bracketSpacing: true,
-        printWidth: 80,
-        trailingComma: 'all',
-        endOfLine: 'lf',
-        singleAttributePerLine: true,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
       },
-    ],
-    'vue/attribute-hyphenation': [
-      'error',
-      'never',
-      {
-        ignore: [],
-      },
-    ],
-    'vue/component-name-in-template-casing': [
-      'error',
-      'PascalCase',
-      {
-        registeredComponentsOnly: false,
-        ignores: [],
-      },
-    ],
+
+      sourceType: "script",
+      parserOptions: {},
+    },
+
+    files: ["**/.eslintrc.{js,cjs}"],
   },
-};
+]);

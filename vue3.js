@@ -1,79 +1,97 @@
-module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/vue3-recommended',
-    'plugin:prettier/recommended',
-  ],
-  overrides: [
-    {
-      env: {
-        node: true,
+const { defineConfig } = require("eslint/config");
+const globals = require("globals");
+const pluginVue = require("eslint-plugin-vue");
+const prettierPlugin = require("eslint-plugin-prettier");
+const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended");
+const js = require("@eslint/js");
+
+module.exports = defineConfig([
+  js.configs.recommended,
+  ...pluginVue.configs["flat/recommended"],
+  eslintPluginPrettierRecommended,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
       },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
-      },
+
+      ecmaVersion: 2020,
+      sourceType: "module",
+      parserOptions: {},
     },
-    {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+
+    plugins: {
+      vue: pluginVue,
+      prettier: prettierPlugin,
+    },
+
+    rules: {
+      "prettier/prettier": [
+        "error",
+        {
+          tabWidth: 2,
+          semi: true,
+          singleQuote: true,
+          bracketSpacing: true,
+          printWidth: 80,
+          trailingComma: "all",
+          endOfLine: "lf",
+          singleAttributePerLine: true,
+        },
       ],
-      env: {
-        jest: true,
+
+      "vue/attribute-hyphenation": [
+        "error",
+        "never",
+        {
+          ignore: [],
+        },
+      ],
+
+      "vue/component-name-in-template-casing": [
+        "error",
+        "PascalCase",
+        {
+          registeredComponentsOnly: false,
+          ignores: [],
+        },
+      ],
+
+      "vue/multi-word-component-names": [
+        "warn",
+        {
+          ignores: [],
+        },
+      ],
+
+      "no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+
+      sourceType: "script",
+      parserOptions: {},
+    },
+
+    files: ["**/.eslintrc.{js,cjs}"],
+  },
+  {
+    files: ["**/__tests__/*.{j,t}s?(x)", "**/tests/unit/**/*.spec.{j,t}s?(x)"],
+
+    languageOptions: {
+      globals: {
+        ...globals.jest,
       },
     },
-  ],
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
   },
-  plugins: ['vue'],
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        tabWidth: 2,
-        semi: true,
-        singleQuote: true,
-        bracketSpacing: true,
-        printWidth: 80,
-        trailingComma: 'all',
-        endOfLine: 'lf',
-        singleAttributePerLine: true,
-      },
-    ],
-    'vue/attribute-hyphenation': [
-      'error',
-      'never',
-      {
-        ignore: [],
-      },
-    ],
-    'vue/component-name-in-template-casing': [
-      'error',
-      'PascalCase',
-      {
-        registeredComponentsOnly: false,
-        ignores: [],
-      },
-    ],
-    'vue/multi-word-component-names': [
-      'warn',
-      {
-        ignores: [],
-      },
-    ],
-    'no-unused-vars': [
-      'warn',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      },
-    ],
-  },
-};
+]);
