@@ -7,21 +7,24 @@ ESLint config with Prettier rules used in Weni's projects.
 First of all, install the ESLint and Prettier plugin:
 
 ```bash
-yarn add --dev eslint@8.56.0 eslint-config-prettier@9.1.0 eslint-plugin-prettier@4.2.1
+yarn add --dev eslint@9.33.0 @vue/eslint-config-prettier@10.2.0
 ```
 
-### Vue 2
+### Vue 3
 
 Install the Vue plugin for ESLint, Vue ESLint parser and Weni ESLint config:
 
 ```bash
-yarn add --dev eslint-plugin-vue@9.21.1 vue-eslint-parser@9.4.2 @weni/eslint-config@1.0.0
+yarn add --dev eslint-plugin-vue@10.4.0 @weni/eslint-config@2.0.0
 ```
 
-Extend your local `.eslintrc.js` with Weni ESLint configuration by adding `'@weni/eslint-config/vue2'` to `extends` attribute:
+Extend your local `.eslint.config.js` with Weni ESLint configuration by adding `'@weni/eslint-config/vue3'` as a `config` attribute:
 
 ```js
-module.exports  = {
-  extends: ['@weni/eslint-config/vue2'],
-};
+import weniConfig from '@weni/eslint-config/vue3';
+
+export default defineConfig({
+  ...,
+  weniConfig,
+});
 ```
